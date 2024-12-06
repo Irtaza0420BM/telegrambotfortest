@@ -2,18 +2,16 @@ const axios = require("axios")
 const base_url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`
 
 
-const setWebhook = async () => {
-  console.log("Request made")
-  console.log(process.env.VERCEL_URL)
-  const webhookUrl = `https://${process.env.VERCEL_URL}/`; // Vercel's URL with an extra / to get result at / route :D 
-  return (`${base_url}/setWebhook?url=${webhookUrl}`)
+setWebhook = async (req, res) => {
 
-  // try {
-  //     const response = await axios.get(`${base_url}/setWebhook?url=${webhookUrl}`);
-  //     console.log(response.data);
-  // } catch (error) {
-  //     console.error(error);
-  // }
+  const webhookUrl = `https://${process.env.VERCEL_URL}/`; // Vercel's URL with an extra / to get result at / route :D 
+
+  try {
+      const response = await axios.get(`${base_url}/setWebhook?url=${webhookUrl}`);
+      res.send(response.data, `${base_url}/setWebhook?url=${webhookUrl}`);
+  } catch (error) {
+      console.error(error);
+  }
 };
 
 function getaxiosInstance() {

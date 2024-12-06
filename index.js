@@ -24,25 +24,22 @@ mongoose.connect(process.env.MONGO_URI)
 const User = mongoose.model('User', userSchema);
 
 
-app.get("/setwebhook" , async(req, res) => {
-  res.send(setWebhook())
-  
-})
+app.get("/setwebhook" , setWebhook)
 
-app.post('/', async (req, res) => {
-    const update = req.body;
-    console.log(update)
-    const response = await handler(update)
-    res.send("ok")
+// app.post('/', async (req, res) => {
+//     const update = req.body;
+//     console.log(update)
+//     const response = await handler(update)
+//     res.send("ok")
 
 
-});
+// });
 
-app.get("/" , async(req, res)=> {
-  console.log(req.body)
-  res.send("ok")
-  res.send(await handler(req))
-})
+// app.get("/" , async(req, res)=> {
+//   console.log(req.body)
+//   res.send("ok")
+//   res.send(await handler(req))
+// })
 // Only for deployment. Remove for local development
 
 
