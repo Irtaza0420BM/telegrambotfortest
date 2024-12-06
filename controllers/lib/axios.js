@@ -3,6 +3,7 @@ const base_url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`
 
 
 const setWebhook = async () => {
+  console.log(process.env.VERCEL_URL)
   const webhookUrl = `https://${process.env.VERCEL_URL}/`; // Vercel's URL with an extra / to get result at / route :D 
 
   try {

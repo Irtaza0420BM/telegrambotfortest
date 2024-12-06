@@ -7,7 +7,6 @@ const { setWebhook } = require('./controllers/lib/axios');
 const app = express();
 app.use(express.json())
 app.use(bodyParser.json());
-setWebhook();
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB...'))
@@ -25,7 +24,9 @@ mongoose.connect(process.env.MONGO_URI)
 const User = mongoose.model('User', userSchema);
 
 
-
+app.get("/setwebhook" , async(req, res) => {
+  setWebhook();
+})
 
 app.post('*', async (req, res) => {
     const update = req.body;
