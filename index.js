@@ -25,7 +25,8 @@ const User = mongoose.model('User', userSchema);
 
 
 app.get("/setwebhook" , async(req, res) => {
-  setWebhook();
+  res.send(setWebhook())
+  
 })
 
 app.post('/', async (req, res) => {
