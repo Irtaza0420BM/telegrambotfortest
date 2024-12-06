@@ -7,7 +7,7 @@ const { setWebhook } = require('./controllers/lib/axios');
 const app = express();
 app.use(express.json())
 app.use(bodyParser.json());
-
+setWebhook();
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB...'))
@@ -47,5 +47,4 @@ app.get("*" , async(req, res)=> {
 const port = 3000
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
-     setWebhook();
 });
