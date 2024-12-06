@@ -28,7 +28,7 @@ app.get("/setwebhook" , async(req, res) => {
   setWebhook();
 })
 
-app.post('*', async (req, res) => {
+app.post('/', async (req, res) => {
     const update = req.body;
     console.log(update)
     const response = await handler(update)
@@ -37,7 +37,7 @@ app.post('*', async (req, res) => {
 
 });
 
-app.get("*" , async(req, res)=> {
+app.get("/" , async(req, res)=> {
   console.log(req.body)
   res.send("ok")
   res.send(await handler(req))
