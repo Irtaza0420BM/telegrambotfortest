@@ -7,13 +7,17 @@ const { setWebhook } = require('./controllers/lib/axios');
 const app = express();
 app.use(express.json())
 app.use(bodyParser.json());
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...', err));
 
 
-  const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   userId: { type: Number, required: true, unique: true },
   name: { type: String, required: true },
   dateRegistered: { type: String, required: true },
@@ -31,14 +35,14 @@ app.post('/', async (req, res) => {
     const response = await handler(update)
     res.send("ok")
 
-
 });
 
 app.get("/" , async(req, res)=> {
   console.log(req.body)
   res.send("ok")
-  res.send(await handler(req))
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
+
 // Only for deployment. Remove for local development
 
 
