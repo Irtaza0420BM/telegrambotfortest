@@ -50,7 +50,7 @@ app.get("/" , async(req, res)=> {
 
 app.post("/fetchdata", async (req, res) => {
   const { userId, username, registerdate } = req.body;
-
+  console.log(userId, username, registerdate)
   try {
     let user = await User.findOne({ _id: userId });
     if (!user) {
