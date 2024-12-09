@@ -7,7 +7,7 @@ const { setWebhook } = require('./controllers/lib/axios');
 const app = express();
 const cors = require("cors")
 
-app.use(cors())
+app.use(cors()); // Allow all origins
 app.use(express.json())
 app.use(bodyParser.json());
 const path = require('path');
@@ -44,7 +44,7 @@ app.get("/" , async(req, res)=> {
 })
 
 app.post("/fetchdata", async (req, res) => {
-  const { userId, username, registerdate } = req.body;
+  const { userId, username, dateRegistered } = req.body;
   console.log(req.body)
   try {
     let user = await User.findOne({ _id: userId });
@@ -52,7 +52,7 @@ app.post("/fetchdata", async (req, res) => {
       const creating_user = {
         _id: userId, // Use userId as the document ID
         name: username,
-        dateRegistered: registerdate,
+        dateRegistered: dateRegistered,
         clickCount: 0,
       };
       user = await User.create(creating_user); // Create and assign the user
