@@ -68,6 +68,10 @@ app.post("/fetchdata", async (req, res) => {
 app.post("/savedata", async (req, res) => {
   const { userId, clickCount } = req.body;
 
+  if (!userId || typeof clickCount !== 'number') {
+    return res.status(400).json({ success: false, message: "Invalid input data." });
+  }
+
   try {
     const filter = { _id: userId }; // Filter by userId
     const update = {
@@ -75,14 +79,25 @@ app.post("/savedata", async (req, res) => {
     };
 
     const result = await User.updateOne(filter, update);
-    console.log(user)
+    console.log("Update Result:", result);
+
     if (result.matchedCount === 0) {
-      return res.status(404).json({ success: false, message: "Cannot fetch userId from database for some reason. Contact admin." });
+      return res.status(404).json({
+        success: false,
+        message: "User not found in the database. Contact admin.",
+      });
     }
-    res.status(200).json({ success: true, message: "User data updated successfully." });
+
+    res.status(200).json({
+      success: true,
+      message: "User data updated successfully.",
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Unable to connect to database. /Database is down.." });
+    console.error("Error in /savedata endpoint:", error);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while saving data. Please try again.",
+    });
   }
 });
 
