@@ -29,7 +29,7 @@ function handleMessage(messageObj) {
                             {
                                 text: "Open Web App",
                                 web_app: {
-                                    url: "https://t.me/irtazabot/webapp", // Replace with your Web App URL
+                                    url: "https://game-tut.vercel.app/", // Replace with your Web App URL
                                 },
                             },
                         ],
