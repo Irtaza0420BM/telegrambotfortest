@@ -47,50 +47,49 @@ app.get("/" , async(req, res)=> {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.post("/fetchdata", async(req,res) =>{ 
- const { userId , username, registerdate} = req.body
- try{
-    const user = await User.findById(userId)
-    if(!user)
-    {
+app.post("/fetchdata", async (req, res) => {
+  const { userId, username, registerdate } = req.body;
+
+  try {
+    let user = await User.findOne({ _id: userId });
+    if (!user) {
       const creating_user = {
+        _id: userId, // Use userId as the document ID
         username: username,
         dateRegistered: registerdate,
-        clickCount: 0
-      }
-      const user = await User.create(creating_user)
-    } 
-    res.status(200).json({data: user})   
-  }
-  catch(error)
-  {
-    res.status(404).json({success: false, message: "Unable to connect to database. /Database is down.."})
-  }
-})
+        clickCount: 0,
+      };
+      user = await User.create(creating_user); // Create and assign the user
+    }
 
+    res.status(200).json({ data: user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Unable to connect to database. /Database is down.." });
+  }
+});
 
-app.post("/savedata", async(req,res)=> {
-  const {userId, clickCount} = req.body
-  try{
-    const filter = { _id: userId }; // The document to update
+app.post("/savedata", async (req, res) => {
+  const { userId, clickCount } = req.body;
+
+  try {
+    const filter = { _id: userId }; // Filter by userId
     const update = {
-      $set: {
-        field1: clickCount, // Fields to update
-      },
+      $set: { clickCount: clickCount }, // Update the clickCount field
     };
-    const user = await User.updateOne(filter, update)
-    if(!user)
-    {
-      res.status(404).json({success: false, message: "Cannot fetch userId from database for some reason. Contact admin. "})
-      }
-     
-    }    
-  catch(error)
-  {
-    res.send(404).json({success: false, message: "Unable to connect to database. /Database is down.."})
+
+    const result = await User.updateOne(filter, update);
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ success: false, message: "Cannot fetch userId from database for some reason. Contact admin." });
+    }
+
+    res.status(200).json({ success: true, message: "User data updated successfully." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Unable to connect to database. /Database is down.." });
   }
-  
-})
+});
+
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
