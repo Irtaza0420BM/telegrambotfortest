@@ -5,6 +5,14 @@ const {handler} = require("./controllers")
 const mongoose = require('mongoose');
 const { setWebhook } = require('./controllers/lib/axios');
 const app = express();
+const cors = require("cors")
+corsoptions =  {
+  origin: ['',
+      "https://game-pxt5qwml2-irtazas-projects-6fbcccd6.vercel.app"
+    ,  "https://t.me/irtazabot/webapp"], 
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsoptions))
 app.use(express.json())
 app.use(bodyParser.json());
 const path = require('path');
