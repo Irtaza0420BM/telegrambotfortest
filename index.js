@@ -55,13 +55,13 @@ app.post("/fetchdata", async (req, res) => {
     if (!user) {
       const creating_user = {
         _id: userId, // Use userId as the document ID
-        username: username,
+        name: username,
         dateRegistered: registerdate,
         clickCount: 0,
       };
       user = await User.create(creating_user); // Create and assign the user
     }
-
+    console.log(user)
     res.status(200).json({ data: user });
   } catch (error) {
     console.error(error);
@@ -79,10 +79,10 @@ app.post("/savedata", async (req, res) => {
     };
 
     const result = await User.updateOne(filter, update);
+    console.log(user)
     if (result.matchedCount === 0) {
       return res.status(404).json({ success: false, message: "Cannot fetch userId from database for some reason. Contact admin." });
     }
-
     res.status(200).json({ success: true, message: "User data updated successfully." });
   } catch (error) {
     console.error(error);
