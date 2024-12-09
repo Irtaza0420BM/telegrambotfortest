@@ -43,7 +43,6 @@ app.get("/" , async(req, res)=> {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-// Only for deployment. Remove for local development
 
 
 const port = process.env.PORT;
