@@ -1,11 +1,17 @@
 const { axiosInstance } = require("./axios");
 
-function sendMessage(messageObj, messageText) {
+function sendMessage(messageObj, messageText, replyMarkup = null) {
     console.log("I am in sendMessage");
-    return axiosInstance.get("sendMessage", {
+    const payload = {
         chat_id: messageObj.chat.id,
         text: messageText,
-    });
+    };
+
+    if (replyMarkup) {
+        payload.reply_markup = replyMarkup;
+    }
+
+    return axiosInstance.post("sendMessage", payload);
 }
 
 function handleMessage(messageObj) {
@@ -17,7 +23,18 @@ function handleMessage(messageObj) {
         switch (command) {
             case "start":
                 console.log("Handling /start command");
-                return sendMessage(messageObj, "Hi! I'm a bot!");
+                return sendMessage(messageObj, "Welcome! Click the button below to start:", {
+                    inline_keyboard: [
+                        [
+                            {
+                                text: "Open Web App",
+                                web_app: {
+                                    url: "https://t.me/irtazabot/webapp", // Replace with your Web App URL
+                                },
+                            },
+                        ],
+                    ],
+                });
             default:
                 return sendMessage(messageObj, "Sorry, I don't understand.");
         }
