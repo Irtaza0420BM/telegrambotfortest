@@ -51,7 +51,8 @@ app.post("/fetchdata", async(req,res) =>{
         clickCount: 0
       }
       const user = await User.create(creating_user)
-    }    
+    } 
+    res.status(200).json({data: user})   
   }
   catch(error)
   {
