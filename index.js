@@ -39,7 +39,7 @@ app.get("/" , async(req, res)=> {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
-app.post("/fetchdata") = async(req,res) =>{ 
+app.post("/fetchdata", async(req,res) =>{ 
  const { userId , username, registerdate} = req.body
  try{
     const user = await User.findById(userId)
@@ -57,10 +57,10 @@ app.post("/fetchdata") = async(req,res) =>{
   {
     res.status(404).json({success: false, message: "Unable to connect to database. /Database is down.."})
   }
-}
+})
 
 
-app.post("/savedata") = async(req,res)=> {
+app.post("/savedata", async(req,res)=> {
   const {userId, clickCount} = req.body
   try{
     const filter = { _id: userId }; // The document to update
@@ -81,7 +81,7 @@ app.post("/savedata") = async(req,res)=> {
     res.send(404).json({success: false, message: "Unable to connect to database. /Database is down.."})
   }
   
-}
+})
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
