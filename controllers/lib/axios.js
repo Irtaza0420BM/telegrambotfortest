@@ -20,4 +20,4 @@ function getaxiosInstance() {
   };
 }
 
-module.exports = {axiosInstance: getaxiosInstance(), setWebhook}
+module.exports = {axiosInstance: getaxiosInstance()}
