@@ -1,7 +1,6 @@
 const { axiosInstance } = require("./axios");
 
 function sendMessage(messageObj, messageText, replyMarkup = null) {
-    console.log("I am in sendMessage");
     const payload = {
         chat_id: messageObj.chat.id,
         text: messageText,
@@ -22,7 +21,6 @@ function handleMessage(messageObj) {
     
         switch (command) {
             case "start":
-                console.log("Handling /start command");
                 return sendMessage(messageObj, "Welcome! Click the button below to start:", {
                     inline_keyboard: [
                         [
@@ -39,7 +37,6 @@ function handleMessage(messageObj) {
                 return sendMessage(messageObj, "Sorry, I don't understand.");
         }
     } else {
-        console.log("Handling regular message");
         return sendMessage(messageObj, messageText);
     }
 }

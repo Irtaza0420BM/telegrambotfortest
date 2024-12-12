@@ -5,7 +5,6 @@ const base_url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`
 function getaxiosInstance() {
   return {
     get(method, params) {
-      console.log("Data is sent to the server");
       return axios.get(`${base_url}${method}`, {
         params,
       });
