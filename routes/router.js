@@ -1,13 +1,16 @@
+const express = require("express")
 const { saveData, fetchData } = require("../controllers/gameControllers");
 const { webHook, posttelCommunicate, gettelCommunicate } = require("../controllers/TelegramControllers");
+const router = express.Router()
 
+router.get("/setwebhook" , webHook );
 
-app.get("/setwebhook" , webHook );
+router.post('/', posttelCommunicate );
 
-app.post('/', posttelCommunicate );
+router.get("/" , gettelCommunicate)
 
-app.get("/" , gettelCommunicate)
+router.post("/fetchdata", saveData);
 
-app.post("/fetchdata", saveData);
+router.post("/savedata", fetchData );
 
-app.post("/savedata", fetchData );
+module.exports = router
