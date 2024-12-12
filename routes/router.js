@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get("/setwebhook" , webHook );
 
-router.post('/', posttelCommunicate );
+router.post("/", posttelCommunicate );
 
 router.get("/" , gettelCommunicate)
 

@@ -15,8 +15,8 @@ exports.webHook = async (req, res) => {
 
 exports.posttelCommunicate = async (req, res) => {
     const update = req.body;
+    console.log("Yes Connected to teleGram", update)
     const response = await handler(update)
-    res.send("ok")
 }
 
 exports.gettelCommunicate= async(req, res)=> {

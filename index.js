@@ -11,7 +11,7 @@ const router= require("./routes/router")
 app.use(cors()); // Allow all origins
 app.use(express.json())
 app.use(bodyParser.json());
-app.use( router)
+app.use(router)
 
 mongodb
 
