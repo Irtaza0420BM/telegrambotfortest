@@ -29,7 +29,7 @@ function handleMessage(messageObj) {
                             {
                                 text: "Open Web App",
                                 web_app: {
-                                    url: "https://google.com", // Replace with your Web App URL
+                                    url: "https://telgame.netlify.app/", // Replace with your Web App URL
                                 },
                             },
                         ],
