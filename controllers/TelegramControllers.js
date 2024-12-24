@@ -5,6 +5,7 @@ const base_url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/`
 
 exports.posttelCommunicate = async (req, res) => {
     const update = req.body;
+    console.log(update)
     const response = await handler(update)
 }
 
